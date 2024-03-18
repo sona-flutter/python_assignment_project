@@ -85,11 +85,65 @@ class MainFrame():
         self.password_label = tk.Label(self.lgn_frame, text="Password", bg="040405", fg="#4f4e4d",font=("yu gothic ui",13,"bold"))
         self.password_label.place(x=550,y=380)
         
-       self.password_entry = tk.Entry(self.lgn_frame, highlightthickness=0,relief=tk.FLAT, bg="#040405", fg="#6b6a69",font=("yu gothic ui", 12, "bold"),show="*", insertbackground = '#6b6a69')
-       self.password_entry.place(x=580, y=416, width=244)
+        self.password_entry = tk.Entry(self.lgn_frame, highlightthickness=0,relief=tk.FLAT, bg="#040405", fg="#6b6a69",font=("yu gothic ui", 12, "bold"),show="*", insertbackground = '#6b6a69')
+        self.password_entry.place(x=580, y=416, width=244)
+        
+        self.password_line = tk.Canvas(self.lgn_frame, width=300, height=2.0,bg="#bdb9b1", highlightthickness=0)
+        self.password_line.place(x=550, y=440)
+        
+        #(PASSWORD Icon)
+        self.password_icon=Image.open('./assets/images/password_icon.png')
+        photo=ImageTk.PhotoImage(self.password_icon)
+        self.password_icon_label=tk.Label(self.lgn_frame,image=photo,bg='#040405')
+        self.password_icon_label.image=photo
+        self.password_icon_label.place(x=550, y=414)
+        
+        #(Show/hide password)
+        self.show_image=ImageTk.PhotoImage\
+            (file='./assets/images/show.png')
+        self.hide_Image=ImageTk.PhotoImage\
+            (file='./assets/images/hide.png')
+            
+        self.show_button=tk.Button(self.lgn_frame, image=self.show_image,command=self.show, relief=tk.FLAT,activebackground="white",borderwidth=0,background="white",cursor="hand2")
+        self.show_button.place(x=860, y=420)
+        
+    def show(self):
+        self.hide_button =tk.Button(self.lgn_frame, image=self.hide_image,command=self.hide,relief=tk.FLAT,activebackground="white",borderwidth=0,background="white",cursor="hand2")
+        self.hide_button.place(x=860, y=420)
+        self.password_entry.config(show='')
+        
+    def hide(self):
+        self.show_button=tk.Button(self.lgn_frame, image=self.show_image,command=self.show,relief=tk.FLAT.activebackground="white",borderwidth=0,background="white",cursor="hand2")
+        self.show_button.place(x=860, y=420)
+        self.password_entry.config(show='*')
+        
+    def switch_to_homeLabel(self):
+        from Home.C2w_home import homeLabel
+        username_value=self.username_entry.get()
+        userpassword_value=self.passworsd_entry.get()
+        
+        if(username_value == 'Core2web'and userpassword_value=='C2w@123'):
+            #Destroy the current frame
+            messageebox.showinfo("Succesfull","Login sucessful")
+            self.main_frame.destroy()
+            
+            #Create and display the new frame from Class1
+            class1_instance=homeLabel(self.root,self,None)
+            class1_instance.pack(fill=tk.BOTH, expand=True)
+            return
+        elif(username_value != 'Core2web'):
+            messagebox.showinfo("Error","Incorrect Username")
+            
+        elif(userpassword_value=='C2w@1230'):
+            messagebox.showinfo("Error","Incorrect Password")
+    def run(self):
+        self.root.mainloop()
+        
+    
        
-       self.password_line=tk.Canvas(self.lgn_frame)
-       
+            
+            
+            
                                                                                                                          
                                     
         
